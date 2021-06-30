@@ -78,19 +78,6 @@ namespace ezstartkitq {
 			case 3:
 				if(usevalue>0) {
 					usevalue = Math.map(usevalue, 0, 100, 0, 4095)
-					motor(11, usevalue)
-					motor(12, 0)
-				}
-				else {
-					usevalue = usevalue*(-1)
-					usevalue = Math.map(usevalue, 0, 100, 0, 4095)
-					motor(11, 0)
-					motor(12, usevalue)
-				}
-				break;
-			case 4:
-				if(usevalue>0) {
-					usevalue = Math.map(usevalue, 0, 100, 0, 4095)
 					motor(9, usevalue)
 					motor(10, 0)
 				}
@@ -99,6 +86,19 @@ namespace ezstartkitq {
 					usevalue = Math.map(usevalue, 0, 100, 0, 4095)
 					motor(9, 0)
 					motor(10, usevalue)
+				}
+				break;
+			case 4:
+				if(usevalue>0) {
+					usevalue = Math.map(usevalue, 0, 100, 0, 4095)
+					motor(11, usevalue)
+					motor(12, 0)
+				}
+				else {
+					usevalue = usevalue*(-1)
+					usevalue = Math.map(usevalue, 0, 100, 0, 4095)
+					motor(11, 0)
+					motor(12, usevalue)
 				}
 				break;
 		}
