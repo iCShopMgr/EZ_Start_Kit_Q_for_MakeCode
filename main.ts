@@ -253,6 +253,12 @@ namespace ezstartkitq {
         ReadData()
         basic.pause(100)
         if(dh == 1) {
+			if (DHT_Temp > 50) {
+				DHT_Temp = DHT_Temp/2;
+			}
+			else if (DHT_Temp > 100) {
+				DHT_Temp = DHT_Temp/4;
+			}
             return DHT_Temp
         }
         else {
