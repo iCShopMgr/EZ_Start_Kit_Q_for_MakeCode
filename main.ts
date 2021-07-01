@@ -1,4 +1,4 @@
-//% weight=0 color=#B3203E icon="\uf118" block="EZ Start Kit Q"
+//% weight=0 color=#00A2E8 icon="\uf1b2" block="EZ Start Kit Q"
 namespace ezstartkitq {
 	let K = 4096 / 20
 	let StartBit = 0.5 * K
@@ -39,11 +39,11 @@ namespace ezstartkitq {
 		//% block="M3"
 		MPT3 = 3,
 		//% block="M4"
-		MPT4 = 4,
+		MPT4 = 4
 	}
 
   //% weight=11
-	//%block="move Motor at port %mpt|value %number"
+	//%block="move Motor at port %mpt|value %number |(-100~100)"
 	export function move_motor_port(mpt: MPort = 1, usevalue: number): void {
 		if(usevalue>100)usevalue = 100
 		if(usevalue<-100)usevalue = -100
@@ -124,7 +124,7 @@ namespace ezstartkitq {
   }
 
   //% weight=11
-  //%block="move Servo at pin %sepin |to %number|degrees"
+  //%block="move Servo at pin %sepin |to %number|degrees(0~180)"
   export function move_servo_pin(sepin: SePin = 1, usevalue: number): void {
       if(usevalue>180)usevalue = 180
       if(usevalue<0)usevalue = 0
@@ -183,7 +183,7 @@ namespace ezstartkitq {
         //% block="Temp"
         data1 = 1,
         //% block="Humid"
-        data2 = 2,
+        data2 = 2
     }
     let DHT_count = 0
     let DHT_value = 0
@@ -349,7 +349,7 @@ namespace ezstartkitq {
         write3 = 3
     }
 
-	//% weight=9
+		//% weight=9
     //% blockId=LED_control block="LED %choose set velue %brightness |(0~100)"
     export function led_control(choose: LED_write = 1, brightness: number): void {
         brightness = Math.map(brightness, 0, 100, 0, 1023)
@@ -638,51 +638,4 @@ namespace ezstartkitq {
         let reverl = Math.map(pins.analogReadPin(AnalogPin.P2), 1, 1023, 1023, 0)
         return Math.round(reverl)
     }
-
-	/*
-    ===EZ Start Kit : IR V2===
-    */
-	let IRREAD_v2: Action;
-	let Reading_v2 = false
-	let readir_v2: number[] = []
-	let irdata_v2 = 0
-	control.inBackground(function () {
-		while (true) {
-			if (Reading_v2 == true) {
-				while (pins.pulseIn(DigitalPin.P8, PulseValue.High) == 0) {}
-				let count_v2 = 0
-				for (let index = 0; index < 20; index++) {
-					readir_v2[count_v2] = pins.pulseIn(DigitalPin.P8, PulseValue.Low)
-					count_v2 += 1
-					readir_v2[count_v2] = pins.pulseIn(DigitalPin.P8, PulseValue.High)
-					count_v2 += 1
-				}
-				let ir_number = 0
-				let ir_data = 0
-				for (let i = 0; i < readir_v2.length; i++) {
-					if (readir_v2[i] > 1000 && readir_v2[i] < 2000) {
-						ir_number += 1
-					}
-					else {
-						ir_number = 0
-					}
-					if (ir_number == 8) {
-						ir_data = i+1
-						break
-					}
-				}
-				irdata_v2 = 0
-				let ircount_v2 = 0
-				for (let i = ir_data; i < ir_data + 8; i++) {
-					if (readir_v2[i] > 1000) {
-						irdata_v2 += (1 << (7 - ircount_v2))
-					}
-					ircount_v2 += 1
-				}
-				//serial.writeLine("code: " + irdata_v2)
-				//serial.writeLine("--------------------")
-			}
-			basic.pause(1)
-		}
-	})
 }

@@ -9,7 +9,7 @@
     "files": [
         "README.md",
         "main.ts",
-        "_locales/zh/ezstartkit-strings.json"
+        "_locales/zh/ezstartkitq-strings.json"
     ],
     "public": true
 }
