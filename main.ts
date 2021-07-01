@@ -190,6 +190,7 @@ namespace ezstartkitq {
     let DHT_out = 0
     let DHT_Temp = 0
     let DHT_Humid = 0
+    let DHT_last = 0
 
     function Ready(): number {
         pins.digitalWritePin(DigitalPin.P16, 0)
@@ -255,9 +256,18 @@ namespace ezstartkitq {
         if(dh == 1) {
 			if (DHT_Temp > 50) {
 				DHT_Temp = DHT_Temp/2;
+				DHT_last = DHT_Temp;
 			}
 			else if (DHT_Temp > 100) {
 				DHT_Temp = DHT_Temp/4;
+				DHT_last = DHT_Temp;
+			}
+			else if (DHT_Temp > 200) {
+				
+				DHT_Temp = DHT_last;
+			}
+			else {
+				DHT_last = DHT_Temp;
 			}
             return DHT_Temp
         }
