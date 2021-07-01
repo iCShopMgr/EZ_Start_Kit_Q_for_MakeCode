@@ -1,4 +1,4 @@
-//% weight=0 color=#00A2E8 icon="\uf1b2" block="EZ Start Kit Q"
+//% weight=0 color=#0078AA icon="\uf1b2" block="EZ Start Kit Q"
 namespace ezstartkitq {
 	let K = 4096 / 20
 	let StartBit = 0.5 * K
